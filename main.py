@@ -33,6 +33,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 # app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY')
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("postgresql://wickjohnpostgres_user:46Dcq1v5YAikc7CT0XMaRPwdOlh5ia7E@dpg-cvmbjqbuibrs73b8j09g-a/wickjohnpostgres",'sqlite:///posts.db')
+
 
 ckeditor = CKEditor(app)
 
