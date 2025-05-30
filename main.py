@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 import os
 from datetime import date
 from flask import Flask, abort, render_template, redirect, url_for, flash, request
@@ -14,7 +15,6 @@ from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 # Optional: add contact me email functionality (Day 60)
 # import smtplib
 
-
 '''
 Make sure the required packages are installed: 
 Open the Terminal in PyCharm (bottom left). 
@@ -28,12 +28,10 @@ pip3 install -r requirements.txt
 This will install the packages from the requirements.txt for this project.
 '''
 
-
+load_dotenv()
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
-# app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY')
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("postgresql://wickjohnpostgres_user:46Dcq1v5YAikc7CT0XMaRPwdOlh5ia7E@dpg-cvmbjqbuibrs73b8j09g-a/wickjohnpostgres",'sqlite:///posts.db')
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URI",'sqlite:///posts.db')
 
 
 ckeditor = CKEditor(app)
