@@ -15,16 +15,22 @@ class CreatePostForm(FlaskForm):
 
 # Create a form to register new users
 class RegisterForm(FlaskForm):
-    email = StringField("Email", validators=[DataRequired()])
-    password = PasswordField("Password", validators=[DataRequired()])
+    email = StringField("Email", validators=[DataRequired(),Email(message="Invalid email address. Please enter a valid email.")
+    ])
+    password = PasswordField("Password", validators=[DataRequired(),Length(min=8, message="Password must be at least 8 characters."),
+        Regexp(
+            regex=r'^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
+            message="Password must contain at least one uppercase letter, one number, and one special character."
+        )])
     name = StringField("Name", validators=[DataRequired()])
     submit = SubmitField("Sign Me Up!")
 
 
 # Create a form to login existing users
 class LoginForm(FlaskForm):
-    email = StringField("Email", validators=[DataRequired()])
-    password = PasswordField("Password", validators=[DataRequired()])
+    email = StringField("Email", validators=[DataRequired(), Email(message="Invalid email address. Please enter a valid email.")
+    ])
+    password = PasswordField("Password", validators=[DataRequired(),])
     submit = SubmitField("Let Me In!")
 
 
