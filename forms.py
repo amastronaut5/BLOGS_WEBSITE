@@ -15,8 +15,7 @@ class CreatePostForm(FlaskForm):
 
 # Create a form to register new users
 class RegisterForm(FlaskForm):
-    email = StringField("Email", validators=[DataRequired(),Email(message="Invalid email address. Please enter a valid email.")
-    ])
+    email = StringField("Email", validators=[DataRequired(), Email(message="Invalid email address. Please enter a valid email.")])
     password = PasswordField("Password", validators=[DataRequired(),Length(min=8, message="Password must be at least 8 characters."),
         Regexp(
             regex=r'^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
@@ -28,8 +27,7 @@ class RegisterForm(FlaskForm):
 
 # Create a form to login existing users
 class LoginForm(FlaskForm):
-    email = StringField("Email", validators=[DataRequired(), Email(message="Invalid email address. Please enter a valid email.")
-    ])
+    email = StringField("Email", validators=[DataRequired(), Email(message="Invalid email address. Please enter a valid email.")])
     password = PasswordField("Password", validators=[DataRequired(),])
     submit = SubmitField("Let Me In!")
 
