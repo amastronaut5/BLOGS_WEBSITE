@@ -213,8 +213,11 @@ def show_post(post_id):
 
 # Use a decorator so only an admin user can create new posts
 @app.route("/new-post", methods=["GET", "POST"])
-@admin_only
+# @admin_only
 def add_new_post():
+    if not current_user.is_authenticated:
+        flash("You must be logged in to write a blog post.")
+        return redirect(url_for("login"))
     form = CreatePostForm()
     if form.validate_on_submit():
         new_post = BlogPost(
