@@ -15,7 +15,7 @@ from sqlalchemy import Integer, String, Text
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
-# Optional: add contact me email functionality (Day 60)
+# gotta add contact me email functionality ->
 # import smtplib
 
 
@@ -50,7 +50,7 @@ gravatar = Gravatar(app,
                     base_url=None)
 
 # CREATE DATABASE
-class Base(DeclarativeBase):
+class Base(DeclarativeBase): #this is for my local db
     pass
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
 db = SQLAlchemy(model_class=Base)
@@ -73,7 +73,7 @@ class BlogPost(db.Model):
     # Parent relationship to the comments
     comments = relationship("Comment", back_populates="parent_post")
 
-# Create a User table for all your registered users
+# This is a User table for all my registered users
 class User(UserMixin, db.Model):
     __tablename__ = "users"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -87,7 +87,7 @@ class User(UserMixin, db.Model):
     comments = relationship("Comment", back_populates="comment_author")
 
 
-# Create a table for the comments on the blog posts
+# This is the table for the comments on the blog posts
 class Comment(db.Model):
     __tablename__ = "comments"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -106,6 +106,7 @@ with app.app_context():
 
 
 # Create an admin-only decorator
+# Was created for admin only access.
 def admin_only(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
