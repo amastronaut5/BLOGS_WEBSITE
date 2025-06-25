@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, EmailField
+from wtforms import StringField, SubmitField, PasswordField
+from wtforms.fields import EmailField
 from wtforms.validators import DataRequired, URL, Email, Length, Regexp,EqualTo
 from flask_ckeditor import CKEditorField
 
@@ -26,31 +27,17 @@ class CreatePostForm(FlaskForm):
 
 
 class RegisterForm(FlaskForm):
-    email = EmailField("Email",
-                       validators=[
-            DataRequired(message="Email is required."),
-            Email(message="Invalid email address. Please enter a valid email.")])
-    name = StringField(
-        "Name",
-        validators=[DataRequired(message="Name is required.")])
+    email = EmailField("Email",validators=[DataRequired(message="Email is required."),Email(message="Invalid email address. Please enter a valid email.")])
+    name = StringField("Name",validators=[DataRequired(message="Name is required.")])
     password = PasswordField(
         "Password",
         validators=[
             DataRequired(message="Password is required."),
             Length(min=8, message="Password must be at least 8 characters."),
             Regexp(
-                regex=r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
-                message="Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character."
-            )
-        ]
-    )
-    confirm_password = PasswordField(
-        "Confirm Password",
-        validators=[
-            DataRequired(message="Please confirm your password."),
-            EqualTo('password', message="Passwords must match.")
-        ]
-    )
+                regex=r'^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
+                message="Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.")])
+    confirm_password = PasswordField("Confirm Password",validators=[DataRequired(message="Please confirm your password."),EqualTo('password', message="Passwords must match.")])
     
     submit = SubmitField("Sign Me Up!")
 
