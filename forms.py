@@ -27,7 +27,7 @@ class CreatePostForm(FlaskForm):
 
 
 class RegisterForm(FlaskForm):
-    email = EmailField("Email",validators=[DataRequired(message="Email is required."),Email(message="Invalid email address. Please enter a valid email.")])
+    email = EmailField("Email",validators=[DataRequired(message="Email is required."),Email(message="Invalid email address. Please enter a valid email.")],render_kw={"autocomplete":"email"})
     name = StringField("Name",validators=[DataRequired(message="Name is required.")])
     password = PasswordField(
         "Password",
@@ -37,17 +37,17 @@ class RegisterForm(FlaskForm):
             
             Regexp(
             regex=r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\s]).{8,}$',
-            message="Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.")])
+            message="Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.")], render_kw={"autocomple":"new-password"})
 
-    confirm_password = PasswordField("Confirm Password",validators=[DataRequired(message="Please confirm your password."),EqualTo('password', message="Passwords must match.")])
+    confirm_password = PasswordField("Confirm Password",validators=[DataRequired(message="Please confirm your password."),EqualTo('password', message="Passwords must match.")],render_kw={"autocomple":"new-password"})
     
     submit = SubmitField("Sign Me Up!")
 
 
 # Create a form to login existing users
 class LoginForm(FlaskForm):
-    email = StringField("Email", validators=[DataRequired(), Email(message="Invalid email address. Please enter a valid email.")])
-    password = PasswordField("Password", validators=[DataRequired(),])
+    email = StringField("Email", validators=[DataRequired(), Email(message="Invalid email address. Please enter a valid email.")], render_kw={"autocomple":"username"})
+    password = PasswordField("Password", validators=[DataRequired()], render_kw={"autocomple":"current-password"})
     submit = SubmitField("Let Me In!")
 
 
