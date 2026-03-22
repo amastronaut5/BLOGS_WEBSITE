@@ -22,8 +22,7 @@ from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 load_dotenv()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URI",'sqlite:///posts.db')
-app.config['SQLALCHEMY_DATABASE_URI']=os.getenv("DATABASE_URI")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URI", "sqlite:///posts.db")
 
 ckeditor = CKEditor(app)
 
@@ -100,9 +99,6 @@ class Comment(db.Model):
     post_id: Mapped[str] = mapped_column(Integer, db.ForeignKey("blog_posts.id"))
     parent_post = relationship("BlogPost", back_populates="comments")
 
-
-with app.app_context():
-    db.create_all()
 
 
 # Create an admin-only decorator
@@ -301,4 +297,4 @@ def contact():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
